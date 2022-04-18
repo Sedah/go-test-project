@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type WebsiteChecker func(string) bool
 
 type result struct {
@@ -13,7 +15,9 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 
 	for _, url := range urls {
 		go func(u string) {
+			fmt.Println(u)
 			resultChannel <- result{u, wc(u)}
+			fmt.Println(resultChannel)
 		}(url)
 	}
 
